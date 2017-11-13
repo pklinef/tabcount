@@ -1,0 +1,52 @@
+html {
+  font-size: 1em;
+}
+
+body {
+  width: 500px;
+  height: 500px;
+  font-family: sans-serif;
+}
+
+tab-count {
+  display: block;
+}
+
+count {
+  display: block;
+  font-size: 1rem;
+}
+
+window {
+  display: block;
+  margin: 0.7rem 0;
+}
+
+window-title {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+tab { 
+  display: block;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: blue;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon {
+  vertical-align: middle;
+  margin: 0 0.5rem;
+  height: 5vh;
+  min-height: 0.7rem;
+  width: 5vh;
+  min-width: 0.7rem;
+}

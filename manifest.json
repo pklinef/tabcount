@@ -1,0 +1,24 @@
+{
+  "name": "TabCount",
+  "version": "1.0",
+  "description": "Tab counter",
+  "icons": {
+    "128": "icon_128.png"
+  },
+  "permissions": [
+    "tabs",
+    "chrome://favicon/"
+  ],
+  "background": {
+    "scripts": [
+      "tabcount.js"
+    ],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "Tab counts",
+    "default_icon": "icon_128.png",
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 2
+}
