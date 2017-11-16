@@ -1,4 +1,5 @@
 {
+  "manifest_version": 2,
   "name": "TabCount",
   "version": "1.0",
   "description": "Tab counter",
@@ -6,8 +7,7 @@
     "128": "icon_128.png"
   },
   "permissions": [
-    "tabs",
-    "chrome://favicon/"
+    "tabs"
   ],
   "background": {
     "scripts": [
@@ -20,5 +20,9 @@
     "default_icon": "icon_128.png",
     "default_popup": "popup.html"
   },
-  "manifest_version": 2
+  "applications": {
+    "gecko": {
+      "id": "tabcount@pklinef.github.io"
+    }
+  }
 }
