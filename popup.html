@@ -9,9 +9,10 @@
       }
 
       body {
-        width: 500px;
-        height: 500px;
         font-family: sans-serif;
+        min-height: 500px;
+        min-width: 500px;
+        overflow-x: hidden;
       }
 
       tab-count {
@@ -25,7 +26,7 @@
 
       window {
         display: block;
-        margin: 0.7rem 0;
+        margin: 1rem 0;
       }
 
       window-title {
@@ -40,9 +41,9 @@
 
       a {
         display: inline-block;
+        font-size: 1rem;
         text-decoration: none;
         color: blue;
-        width: 100%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -50,10 +51,10 @@
 
       .icon {
         vertical-align: middle;
-        margin: 0 0.5rem;
-        height: 5vh;
+        margin: 0.01rem 0.5rem;
+        height: 2rem;
         min-height: 0.7rem;
-        width: 5vh;
+        width: 2rem;
         min-width: 0.7rem;
       }
     </style>
