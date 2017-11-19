@@ -58,13 +58,15 @@ chrome.windows.getAll({populate:true},function(windows){
   exportBtn.addEventListener('click', function (e) {
     const html = document.body.parentElement.cloneNode(true);
 
-    var script = html.getElementsByTagName('script')[0];
+    const script = html.getElementsByTagName('script')[0];
     script.remove();
 
-    var saveBtn = html.getElementsByClassName('export')[0];
+    const saveBtn = html.getElementsByClassName('export')[0];
     saveBtn.remove();
 
-    exportBtn.setAttribute('download', 'tabs.html');
+    const exportDate = new Date().toISOString().slice(0, 10)
+
+    exportBtn.setAttribute('download', 'tab-export-' + exportDate + '.html');
     exportBtn.setAttribute('href', 'data:text/html;charset=utf-8,' + 
       encodeURIComponent(html.outerHTML));
     return false;
