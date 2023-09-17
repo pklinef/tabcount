@@ -1,4 +1,4 @@
-/* global browser, chrome, Blob, URL, document, window */
+/* global chrome, Blob, URL, document, window */
 
 chrome.windows.getAll({populate:true},function(windows){
   const openTabs = document.getElementsByTagName('tab-count')[0];
@@ -12,8 +12,8 @@ chrome.windows.getAll({populate:true},function(windows){
   exportBtn.className = 'export';
   exportBtn.appendChild(document.createTextNode('Export to file'));
 
-  var tabCount = 0;
-  var windCount = 0;
+  let tabCount = 0;
+  let windCount = 0;
   windows.forEach(function(wind){
     windCount++;
     tabCount += wind.tabs.length;
@@ -75,22 +75,10 @@ chrome.windows.getAll({populate:true},function(windows){
     const encoder = new TextEncoder();
     const htmlBytes = encoder.encode(html.outerHTML);
 
-    const url = URL.createObjectURL(new Blob([htmlBytes], { type: "text/html" }));
+    const url = URL.createObjectURL(new Blob([htmlBytes], { type: 'text/html' }));
 
-    let downloading = browser.downloads.download({
-      url: url,
-      filename: filename,
-      saveAs: false,
-    });
-
-    downloading.then(value => {
-      URL.revokeObjectURL(url);
-    }).catch(err => {
-      console.error(err);
-      URL.revokeObjectURL(url);
-    })
-
-    window.close();
+    exportBtn.setAttribute('download', filename);
+    exportBtn.setAttribute('href', url);
 
     return false;
   });
