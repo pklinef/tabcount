@@ -5,7 +5,12 @@ function updateCount() {
       count += wind.tabs.length;
     }
 
-    chrome.browserAction.setBadgeText({ text: count.toString() });
+    let badgeText = count.toString();
+    if (count >= 1000) {
+      badgeText = (count / 1000).toFixed(0).toString() + "k";
+    }
+
+    chrome.browserAction.setBadgeText({ text: badgeText });
     chrome.browserAction.setTitle({ title: count + ' tabs' });
   });
 }
