@@ -1,3 +1,5 @@
+/* global browser, chrome, Blob, URL, document, window */
+
 chrome.windows.getAll({populate:true},function(windows){
   const openTabs = document.getElementsByTagName('tab-count')[0];
   const updatedOpenTabs = document.createDocumentFragment();
@@ -20,7 +22,6 @@ chrome.windows.getAll({populate:true},function(windows){
     windowEl.appendChild(document.createTextNode('\n  '));
     const windowTitle = windowEl.appendChild(document.createElement('window-title'));
     windowEl.appendChild(document.createTextNode('\n  '));
-    const windowId = wind.id;
     windowTitle.innerText = 'Window ' + windCount + ' (' + wind.tabs.length + ' tabs)';    
 
     wind.tabs.forEach(function(tab){
@@ -45,7 +46,7 @@ chrome.windows.getAll({populate:true},function(windows){
       a.href = tab.url;
       a.title = tab.title;
       a.appendChild(document.createTextNode(tab.title));
-      a.addEventListener('click', function (e) {
+      a.addEventListener('click', function (event) {
         chrome.windows.update(wind.id, {focused: true});
         chrome.tabs.highlight({windowId: wind.id, tabs: tab.index});
         return false;
@@ -55,7 +56,7 @@ chrome.windows.getAll({populate:true},function(windows){
   
   countDiv.innerText = tabCount + ' tabs across ' + windows.length + ' windows';
 
-  exportBtn.addEventListener('click', function (e) {
+  exportBtn.addEventListener('click', function (event) {
     const html = document.body.parentElement.cloneNode(true);
 
     const script = html.getElementsByTagName('script')[0];
@@ -64,11 +65,30 @@ chrome.windows.getAll({populate:true},function(windows){
     const saveBtn = html.getElementsByClassName('export')[0];
     saveBtn.remove();
 
-    const exportDate = new Date().toISOString().slice(0, 10)
+    const exportDate = new Date().toISOString().slice(0, 10);
 
-    exportBtn.setAttribute('download', 'tab-export-' + exportDate + '.html');
-    exportBtn.setAttribute('href', 'data:text/html;charset=utf-8,' + 
-      encodeURIComponent(html.outerHTML));
+    const filename = 'tab-export-' + exportDate + '.html';
+
+    const encoder = new TextEncoder();
+    const htmlBytes = encoder.encode(html.outerHTML);
+
+    const url = URL.createObjectURL(new Blob([htmlBytes], { type: "text/html" }));
+
+    let downloading = browser.downloads.download({
+      url: url,
+      filename: filename,
+      saveAs: false,
+    });
+
+    downloading.then(value => {
+      URL.revokeObjectURL(url);
+    }).catch(err => {
+      console.error(err);
+      URL.revokeObjectURL(url);
+    })
+
+    window.close();
+
     return false;
   });
 
