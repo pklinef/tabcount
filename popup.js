@@ -10,7 +10,7 @@ chrome.windows.getAll({populate:true},function(windows){
   const exportBtn = updatedOpenTabs.appendChild(document.createElement('a'));
   updatedOpenTabs.appendChild(document.createTextNode('\n'));
   exportBtn.className = 'export';
-  exportBtn.appendChild(document.createTextNode('Export'));
+  exportBtn.appendChild(document.createTextNode('Export to file'));
 
   var tabCount = 0;
   var windCount = 0;
@@ -53,8 +53,11 @@ chrome.windows.getAll({populate:true},function(windows){
       });   
     });
   });
-  
-  countDiv.innerText = tabCount + ' tabs across ' + windows.length + ' windows';
+
+  countDiv.innerText = tabCount + ' tabs';
+  if (windows.length > 1) {
+    countDiv.innerText = countDiv.innerText + ' from ' + windows.length + ' windows';
+  }
 
   exportBtn.addEventListener('click', function (event) {
     const html = document.body.parentElement.cloneNode(true);
